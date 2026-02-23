@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ReactQueryProvider } from "@/providers/ReactQuery/ReactQueryProvider";
+import { text } from "@/i18n";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -14,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jimini Health | Encounters",
-  description: "Jimini Health Encounters Dashboard",
+  title: text("app.title"),
+  description: text("app.description"),
 };
 
 export default function RootLayout({

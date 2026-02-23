@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useEncounters } from "@/hooks/useEncounters";
 import { Button } from "@/components/Button/Button";
+import { text } from "@/i18n";
 
 export const Encounters = () => {
   const [page, setPage] = useState(1);
@@ -15,7 +16,7 @@ export const Encounters = () => {
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center">
-        <p>Loading encounters...</p>
+        <p>{text("encounters.loading")}</p>
       </div>
     );
   }
@@ -23,13 +24,13 @@ export const Encounters = () => {
   if (error) {
     return (
       <div className="flex flex-col items-center justify-center">
-        <p className="text-red-600">Error fetching encounters</p>
+        <p className="text-red-600">{text("encounters.error")}</p>
       </div>
     );
   }
 
   if (!data?.encounters.length) {
-    return <div className="text-center">No encounters found.</div>;
+    return <div className="text-center">{text("encounters.empty")}</div>;
   }
 
   const { pagination, encounters } = data;
@@ -47,11 +48,15 @@ export const Encounters = () => {
                 className="w-full py-4 my-2"
                 onClick={() => handleEncounterClick(id)}
               >
-                <div className="flex flex-row justify-between">
+                <div className="grid grid-cols-[80px_110px_1fr_100px] gap-4 text-left">
                   <span>{patientInitials}</span>
-                  <span>{encounterDate}</span>
-                  <span>{encounterType}</span>
-                  <span>{status}</span>
+                  <span className="tabular-nums">
+                    {new Date(encounterDate).toLocaleDateString()}
+                  </span>
+                  <span className="capitalize">
+                    {encounterType.replace(/_/g, " ")}
+                  </span>
+                  <span className="capitalize">{status.replace(/_/g, " ")}</span>
                 </div>
               </Button>
             </li>
@@ -61,20 +66,23 @@ export const Encounters = () => {
 
       <div className="flex items-center justify-center mb-4 gap-2">
         <p className="text-sm">
-          Page {pagination.page} of {totalPages}
+          {text("encounters.pageOf", {
+            page: pagination.page,
+            total: totalPages,
+          })}
         </p>
         <div className="flex gap-2">
           <Button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
           >
-            Previous
+            {text("encounters.previous")}
           </Button>
           <Button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
           >
-            Next
+            {text("encounters.next")}
           </Button>
         </div>
       </div>
