@@ -5,6 +5,10 @@ import { useEncounters } from "@/hooks/useEncounters";
 export const Encounters = () => {
   const { data, loading, error } = useEncounters();
 
+  const handleEncounterClick = (id: string) => {
+    console.log(id);
+  };
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center">
@@ -32,8 +36,11 @@ export const Encounters = () => {
           encounter;
         return (
           <li key={id}>
-            <button className="w-full">
-              <div className="flex flex-row justify-between px-4">
+            <button
+              className="w-full cursor-pointer border border-gray-200 rounded-md p-4 my-2 hover:bg-gray-100"
+              onClick={() => handleEncounterClick(id)}
+            >
+              <div className="flex flex-row justify-between">
                 <span>{patientInitials}</span>
                 <span>{encounterDate}</span>
                 <span>{encounterType}</span>
