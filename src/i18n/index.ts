@@ -1,4 +1,4 @@
-import { translations, type TranslationKey } from "./translations";
+import { translations, type TranslationKey } from "@/i18n/translations";
 
 type InterpolationMap = Record<string, string | number>;
 
@@ -8,6 +8,6 @@ export function text(key: TranslationKey, params?: InterpolationMap): string {
 
   return Object.entries(params).reduce(
     (acc, [k, v]) => acc.replace(`{${k}}`, String(v)),
-    value
+    value,
   );
 }

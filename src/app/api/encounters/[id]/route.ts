@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getEncounterById } from "../data";
+import { getEncounterById } from "@/app/api/encounters/data";
 
 export async function GET(
   request: NextRequest,

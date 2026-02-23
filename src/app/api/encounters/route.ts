@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getEncounters } from "./data";
+import { getEncounters } from "@/app/api/encounters/data";
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

@@ -16,7 +16,7 @@ export function ReactQueryProvider({
             staleTime: 60 * 1000,
           },
         },
-      })
+      }),
   );
 
   return (

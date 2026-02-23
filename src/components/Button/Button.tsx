@@ -16,7 +16,7 @@ export function Button({
     <button
       className={clsx(
         "rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-100 disabled:cursor-not-allowed cursor-pointer disabled:opacity-50",
-        className
+        className,
       )}
       disabled={disabled}
       {...props}
