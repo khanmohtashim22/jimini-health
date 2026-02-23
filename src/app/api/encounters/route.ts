@@ -9,6 +9,8 @@ export async function GET(request: NextRequest) {
   const validPage = Math.max(1, page);
   const validPageSize = Math.min(100, Math.max(1, pageSize));
 
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
   const data = getEncounters(validPage, validPageSize);
 
   return NextResponse.json(data);
