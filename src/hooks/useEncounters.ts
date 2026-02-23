@@ -8,7 +8,7 @@ interface UseEncountersOptions {
 
 async function fetchEncounters(
   page: number,
-  pageSize: number
+  pageSize: number,
 ): Promise<EncountersResponse> {
   const params = new URLSearchParams({
     page: page.toString(),

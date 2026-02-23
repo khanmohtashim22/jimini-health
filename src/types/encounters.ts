@@ -1,12 +1,17 @@
-export type EncounterType = 
-  | 'therapy_session'
-  | 'initial_assessment'
-  | 'follow_up'
-  | 'crisis_intervention'
-  | 'medication_review'
-  | 'group_therapy';
+export type EncounterType =
+  | "therapy_session"
+  | "initial_assessment"
+  | "follow_up"
+  | "crisis_intervention"
+  | "medication_review"
+  | "group_therapy";
 
-export type EncounterStatus = 'scheduled' | 'in_progress' | 'completed' | 'cancelled' | 'no_show';
+export type EncounterStatus =
+  | "scheduled"
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "no_show";
 
 export interface Assessment {
   name: string;
