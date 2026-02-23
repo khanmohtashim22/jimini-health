@@ -1,4 +1,4 @@
-import Encounters from "@/components/Encounters/Encounters";
+import { Encounters } from "@/components/Encounters/Encounters";
 
 export default function Home() {
   return (

@@ -2,7 +2,7 @@
 
 import { useEncounters } from "@/hooks/useEncounters";
 
-const Encounters = () => {
+export const Encounters = () => {
   const { data, loading, error } = useEncounters();
 
   if (loading) {
@@ -68,5 +68,3 @@ const Encounters = () => {
     </ul>
   );
 };
-
-export default Encounters;
