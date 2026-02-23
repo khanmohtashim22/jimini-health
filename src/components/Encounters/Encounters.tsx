@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useEncounters } from "@/hooks/useEncounters";
+import { Button } from "@/components/Button/Button";
 
 export const Encounters = () => {
   const [page, setPage] = useState(1);
@@ -42,8 +43,8 @@ export const Encounters = () => {
             encounter;
           return (
             <li key={id}>
-              <button
-                className="w-full cursor-pointer border border-gray-200 rounded-md p-4 my-2 hover:bg-gray-100"
+              <Button
+                className="w-full py-4 my-2"
                 onClick={() => handleEncounterClick(id)}
               >
                 <div className="flex flex-row justify-between">
@@ -52,7 +53,7 @@ export const Encounters = () => {
                   <span>{encounterType}</span>
                   <span>{status}</span>
                 </div>
-              </button>
+              </Button>
             </li>
           );
         })}
@@ -63,20 +64,18 @@ export const Encounters = () => {
           Page {pagination.page} of {totalPages}
         </p>
         <div className="flex gap-2">
-          <button
+          <Button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1}
-            className="rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Previous
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages}
-            className="rounded-md border border-gray-300 px-3 py-1 text-sm hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Next
-          </button>
+          </Button>
         </div>
       </div>
     </div>
