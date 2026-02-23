@@ -14,9 +14,9 @@ export function EncountersPagination({
   const totalPages = Math.ceil(pagination.total / pagination.pageSize);
 
   return (
-    <div className="flex items-center justify-center mb-4 gap-2">
+    <div className="flex items-center justify-center px-6 mb-4 gap-2">
       <p className="text-sm">
-        {text("encounters.pageOf", {
+        {text("encounters.pagination.pageOf", {
           page: pagination.page,
           total: totalPages,
         })}
@@ -26,7 +26,7 @@ export function EncountersPagination({
           onClick={() => onPageChange(Math.max(1, pagination.page - 1))}
           disabled={pagination.page <= 1}
         >
-          {text("encounters.previous")}
+          {text("encounters.pagination.previous")}
         </Button>
         <Button
           onClick={() =>
@@ -34,7 +34,7 @@ export function EncountersPagination({
           }
           disabled={pagination.page >= totalPages}
         >
-          {text("encounters.next")}
+          {text("encounters.pagination.next")}
         </Button>
       </div>
     </div>

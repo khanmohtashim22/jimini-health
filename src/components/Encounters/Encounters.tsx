@@ -3,16 +3,13 @@
 import { useState } from "react";
 import { useEncounters } from "@/hooks/useEncounters";
 import { text } from "@/i18n";
-import { EncountersTable } from "@/components/Encounters/EncountersTable1";
-import { EncountersPagination } from "@/components/Encounters/EncountersPagination1";
+import { EncountersTable } from "@/components/Encounters/EncountersTable";
+import { EncountersPagination } from "@/components/Encounters/EncountersPagination";
 
 export const Encounters = () => {
   const [page, setPage] = useState(1);
   const { data, loading, error } = useEncounters({ page });
 
-  const handleEncounterClick = (id: string) => {
-    console.log(id);
-  };
 
   if (loading) {
     return (
@@ -38,7 +35,6 @@ export const Encounters = () => {
     <div className="flex flex-col gap-4">
       <EncountersTable
         encounters={data.encounters}
-        onEncounterClick={handleEncounterClick}
       />
       <EncountersPagination
         pagination={data.pagination}

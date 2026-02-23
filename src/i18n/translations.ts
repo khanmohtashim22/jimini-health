@@ -5,9 +5,16 @@ export const translations = {
   "encounters.loading": "Loading encounters...",
   "encounters.error": "Error fetching encounters",
   "encounters.empty": "No encounters found.",
-  "encounters.pageOf": "Page {page} of {total}",
-  "encounters.previous": "Previous",
-  "encounters.next": "Next",
+
+  "encounters.table.initials": "Initials",
+  "encounters.table.date": "Date",
+  "encounters.table.encounterType": "Encounter Type",
+  "encounters.table.status": "Status",
+  "encounters.table.viewEncounter": "View encounter for {initials} on {date}",
+
+  "encounters.pagination.pageOf": "Page {page} of {total}",
+  "encounters.pagination.previous": "Previous",
+  "encounters.pagination.next": "Next",
 
   "encounters.api.notFound": "Encounter not found",
 } as const;
