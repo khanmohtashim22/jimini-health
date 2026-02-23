@@ -17,6 +17,17 @@ export const translations = {
   "encounters.pagination.next": "Next",
 
   "encounters.api.notFound": "Encounter not found",
+
+  "encounter.loading": "Loading encounter...",
+  "encounter.notFound": "Encounter not found",
+  "encounter.backToEncounters": "Back to encounters",
+  "encounter.detail.patient": "Patient",
+  "encounter.detail.date": "Date",
+  "encounter.detail.type": "Encounter Type",
+  "encounter.detail.duration": "Duration",
+  "encounter.detail.status": "Status",
+  "encounter.detail.notes": "Notes",
+  "encounter.detail.assessments": "Assessments",
 } as const;
 
 export type TranslationKey = keyof typeof translations;

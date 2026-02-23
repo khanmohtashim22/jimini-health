@@ -10,7 +10,6 @@ export const Encounters = () => {
   const [page, setPage] = useState(1);
   const { data, loading, error } = useEncounters({ page });
 
-
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center">
@@ -33,9 +32,7 @@ export const Encounters = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <EncountersTable
-        encounters={data.encounters}
-      />
+      <EncountersTable encounters={data.encounters} />
       <EncountersPagination
         pagination={data.pagination}
         onPageChange={setPage}

@@ -1,3 +1,6 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import type { Encounter } from "@/types/encounters";
 import { text } from "@/i18n";
 
@@ -5,13 +8,12 @@ interface EncountersTableProps {
   encounters: Encounter[];
 }
 
-export function EncountersTable({
-  encounters,
-}: EncountersTableProps) {
-  const handleEncounterClick = (id: string) => {
-    console.log(id);
-  };
+export function EncountersTable({ encounters }: EncountersTableProps) {
+  const router = useRouter();
 
+  const handleRowClick = (id: string) => {
+    router.push(`/${id}`);
+  };
   return (
     <div className="px-6">
       <table className="w-full table-fixed">
@@ -49,11 +51,11 @@ export function EncountersTable({
               role="button"
               tabIndex={0}
               aria-label={rowLabel}
-              onClick={() => handleEncounterClick(id)}
+              onClick={() => handleRowClick(id)}
               onKeyDown={(e) => {
                 if (e.key === "Enter" || e.key === " ") {
                   e.preventDefault();
-                  handleEncounterClick(id);
+                  handleRowClick(id);
                 }
               }}
               className="cursor-pointer border-b border-gray-100 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-inset"
