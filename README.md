@@ -97,3 +97,15 @@ TanStack Query handles server state (encounters, pagination). Local UI state is 
 - **`track()`** — Single entry point for analytics and logging. All payloads go through `redact()` before output.
 - **Events tracked:** `encounter_viewed`, `encounters_list_viewed`, `encounter_row_clicked`, `pagination_changed`, `back_to_encounters_clicked`, `encounters_fetch_error`.
 - **Output:** Console in development; intended to be sent to an analytics service in production (with redaction applied before sending).
+
+---
+
+## Testing Strategy
+
+### What I Tested
+
+- **[`redact` unit tests]:** Ensures `patientId` and `notes` are replaced with `[REDACTED]` in nested objects and arrays. Critical for PHI compliance — without this, sensitive data could leak into logs or analytics.
+
+- **[EncountersTable row click + `encounter_row_clicked`]:** Covers the main user interaction (clicking a row to view an encounter) and that `router.push` and `track` are called with the correct payload. Validates the primary navigation flow.
+
+- **[`useEncounters` fetch error / Encounters error state]:** Verifies that when the API fails, the error UI is shown and `encounters_fetch_error` is tracked. Covers the error path and ensures we log failures for debugging.
