@@ -1,6 +1,6 @@
-import Link from "next/link";
 import type { Encounter } from "@/types/encounters";
 import { text } from "@/i18n";
+import { BackToEncounters } from "@/components/Encounter/BackToEncounters";
 
 interface EncounterProps {
   encounter: Encounter;
@@ -23,13 +23,7 @@ export function Encounter({ encounter }: EncounterProps) {
 
   return (
     <div className="px-6 py-4 space-y-6">
-      <Link
-        href="/"
-        className="inline-block text-blue-600 underline hover:text-blue-800 mb-4"
-      >
-        {text("encounter.backToEncounters")}
-      </Link>
-
+      <BackToEncounters />
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <dt className="text-sm font-medium text-gray-500">
@@ -71,7 +65,7 @@ export function Encounter({ encounter }: EncounterProps) {
           <p className="mt-1 text-base">{notes}</p>
         </div>
       )}
-      
+
       {assessments && assessments.length > 0 && (
         <div>
           <h3 className="text-sm font-medium text-gray-500">

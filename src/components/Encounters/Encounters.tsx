@@ -1,14 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEncounters } from "@/hooks/useEncounters";
 import { text } from "@/i18n";
 import { EncountersTable } from "@/components/Encounters/EncountersTable";
 import { EncountersPagination } from "@/components/Encounters/EncountersPagination";
 
 export const Encounters = () => {
-  const [page, setPage] = useState(1);
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
   const { data, loading, error } = useEncounters({ page });
+
+  const handlePageChange = (newPage: number) => {
+    router.replace(`/?page=${newPage}`);
+  };
 
   if (loading) {
     return (
@@ -35,7 +41,7 @@ export const Encounters = () => {
       <EncountersTable encounters={data.encounters} />
       <EncountersPagination
         pagination={data.pagination}
-        onPageChange={setPage}
+        onPageChange={handlePageChange}
       />
     </div>
   );
