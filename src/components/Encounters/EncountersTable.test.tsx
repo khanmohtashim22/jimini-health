@@ -4,6 +4,11 @@ import type { Encounter } from "@/types/encounters";
 
 const mockPush = jest.fn();
 
+const mockTrack = jest.fn();
+jest.mock("@/lib/track", () => ({
+  track: (...args: unknown[]) => mockTrack(...args),
+}));
+
 jest.mock("next/navigation", () => ({
   useRouter: () => ({
     push: mockPush,
@@ -29,8 +34,17 @@ describe("EncountersTable", () => {
     jest.clearAllMocks();
   });
 
+  it("calls track with encounters_list_viewed and page on mount", () => {
+    const encounters = [createEncounter()];
+    render(<EncountersTable encounters={encounters} page={2} />);
+
+    expect(mockTrack).toHaveBeenCalledWith("encounters_list_viewed", {
+      page: 2,
+    });
+  });
+
   it("renders table headers", () => {
-    render(<EncountersTable encounters={[]} />);
+    render(<EncountersTable encounters={[]} page={1} />);
 
     expect(screen.getByText("Initials")).toBeInTheDocument();
     expect(screen.getByText("Date")).toBeInTheDocument();
@@ -56,7 +70,7 @@ describe("EncountersTable", () => {
       }),
     ];
 
-    render(<EncountersTable encounters={encounters} />);
+    render(<EncountersTable encounters={encounters} page={1} />);
 
     expect(screen.getByText("J.D.")).toBeInTheDocument();
     expect(screen.getByText("M.S.")).toBeInTheDocument();
@@ -67,14 +81,30 @@ describe("EncountersTable", () => {
   });
 
   it("renders no data rows when encounters is empty", () => {
-    render(<EncountersTable encounters={[]} />);
+    render(<EncountersTable encounters={[]} page={1} />);
 
-    expect(screen.queryByRole("button", { name: /view encounter/i })).toBeNull();
+    expect(
+      screen.queryByRole("button", { name: /view encounter/i }),
+    ).toBeNull();
+  });
+
+  it("calls track with encounter_row_clicked and encounterId when row is clicked", () => {
+    const encounter = createEncounter({ id: "enc_1001" });
+    render(<EncountersTable encounters={[encounter]} page={1} />);
+
+    const row = screen.getByRole("button", {
+      name: /view encounter for J\.D\./i,
+    });
+    fireEvent.click(row);
+
+    expect(mockTrack).toHaveBeenCalledWith("encounter_row_clicked", {
+      encounterId: "enc_1001",
+    });
   });
 
   it("calls router.push with correct URL when row is clicked", () => {
     const encounter = createEncounter({ id: "enc_1001" });
-    render(<EncountersTable encounters={[encounter]} />);
+    render(<EncountersTable encounters={[encounter]} page={1} />);
 
     const row = screen.getByRole("button", {
       name: /view encounter for J\.D\./i,
@@ -84,27 +114,33 @@ describe("EncountersTable", () => {
     expect(mockPush).toHaveBeenCalledWith("/enc_1001");
   });
 
-  it("calls router.push when Enter is pressed on row", () => {
+  it("calls track and router.push when Enter is pressed on row", () => {
     const encounter = createEncounter({ id: "enc_2001" });
-    render(<EncountersTable encounters={[encounter]} />);
+    render(<EncountersTable encounters={[encounter]} page={1} />);
 
     const row = screen.getByRole("button", {
       name: /view encounter for J\.D\./i,
     });
     fireEvent.keyDown(row, { key: "Enter" });
 
+    expect(mockTrack).toHaveBeenCalledWith("encounter_row_clicked", {
+      encounterId: "enc_2001",
+    });
     expect(mockPush).toHaveBeenCalledWith("/enc_2001");
   });
 
-  it("calls router.push when Space is pressed on row", () => {
+  it("calls track and router.push when Space is pressed on row", () => {
     const encounter = createEncounter({ id: "enc_3001" });
-    render(<EncountersTable encounters={[encounter]} />);
+    render(<EncountersTable encounters={[encounter]} page={1} />);
 
     const row = screen.getByRole("button", {
       name: /view encounter for J\.D\./i,
     });
     fireEvent.keyDown(row, { key: " " });
 
+    expect(mockTrack).toHaveBeenCalledWith("encounter_row_clicked", {
+      encounterId: "enc_3001",
+    });
     expect(mockPush).toHaveBeenCalledWith("/enc_3001");
   });
 });

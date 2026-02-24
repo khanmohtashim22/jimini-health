@@ -6,6 +6,11 @@ jest.mock("@/components/Encounter/BackToEncounters", () => ({
   BackToEncounters: () => <div data-testid="back-to-encounters" />,
 }));
 
+const mockTrack = jest.fn();
+jest.mock("@/lib/track", () => ({
+  track: (...args: unknown[]) => mockTrack(...args),
+}));
+
 const mockEncounter: EncounterType = {
   id: "enc_1001",
   patientId: "pat_101",
@@ -22,6 +27,18 @@ const mockEncounter: EncounterType = {
 };
 
 describe("Encounter", () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("calls track with encounter_viewed and encounter on mount", () => {
+    render(<Encounter encounter={mockEncounter} />);
+
+    expect(mockTrack).toHaveBeenCalledWith("encounter_viewed", {
+      encounter: mockEncounter,
+    });
+  });
+
   it("renders BackToEncounters", () => {
     render(<Encounter encounter={mockEncounter} />);
 

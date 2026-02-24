@@ -38,7 +38,7 @@ export const Encounters = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <EncountersTable encounters={data.encounters} />
+      <EncountersTable encounters={data.encounters} page={page} />
       <EncountersPagination
         pagination={data.pagination}
         onPageChange={handlePageChange}

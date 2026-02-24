@@ -1,12 +1,20 @@
+"use client";
+
+import { useEffect } from "react";
 import type { Encounter } from "@/types/encounters";
 import { text } from "@/i18n";
 import { BackToEncounters } from "@/components/Encounter/BackToEncounters";
+import { track } from "@/lib/track";
 
 interface EncounterProps {
   encounter: Encounter;
 }
 
 export function Encounter({ encounter }: EncounterProps) {
+  useEffect(() => {
+    track("encounter_viewed", { encounter });
+  }, [encounter]);
+
   const {
     patientInitials,
     encounterDate,
@@ -23,7 +31,7 @@ export function Encounter({ encounter }: EncounterProps) {
 
   return (
     <div className="px-6 py-4 space-y-6">
-      <BackToEncounters />
+      <BackToEncounters fromEncounterId={encounter.id} />
       <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <dt className="text-sm font-medium text-gray-500">

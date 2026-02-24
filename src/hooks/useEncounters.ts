@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { EncountersResponse } from "@/types/encounters";
+import { track } from "@/lib/track";
 
 interface UseEncountersOptions {
   page?: number;
@@ -30,6 +32,12 @@ export function useEncounters(options: UseEncountersOptions = {}) {
     queryKey: ["encounters", page, pageSize],
     queryFn: () => fetchEncounters(page, pageSize),
   });
+
+  useEffect(() => {
+    if (query.isError) {
+      track("encounters_fetch_error", { page });
+    }
+  }, [query.isError, page]);
 
   return {
     data: query.data ?? null,
