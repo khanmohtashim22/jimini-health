@@ -135,7 +135,7 @@ function generateDate(index: number, total: number): string {
 }
 
 function generateAssessments(random: () => number): Assessment[] | undefined {
-  if (random() > 0.4) return undefined;
+  if (random() > 0.9) return undefined;
 
   const count = Math.floor(random() * 3) + 1;
   const shuffled = [...ASSESSMENT_TYPES].sort(() => random() - 0.5);

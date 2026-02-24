@@ -71,7 +71,7 @@ export function Encounter({ encounter }: EncounterProps) {
           <p className="mt-1 text-base">{notes}</p>
         </div>
       )}
-
+      
       {assessments && assessments.length > 0 && (
         <div>
           <h3 className="text-sm font-medium text-gray-500">
