@@ -6,7 +6,7 @@ import { text } from "@/i18n";
 import { EncountersTable } from "@/components/Encounters/EncountersTable";
 import { EncountersPagination } from "@/components/Encounters/EncountersPagination";
 
-export const Encounters = () => {
+export function Encounters() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const page = parseInt(searchParams.get("page") || "1", 10);
@@ -45,4 +45,4 @@ export const Encounters = () => {
       />
     </div>
   );
-};
+}
